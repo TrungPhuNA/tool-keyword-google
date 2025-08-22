@@ -17,17 +17,22 @@ class KeywordSEOTool {
         try {
             console.log('🚀 Bắt đầu thu thập từ khóa SEO...');
             console.log(`📝 Từ khóa ban đầu: "${initialKeyword}"`);
-            
+
+            console.log('🔧 Đang khởi tạo scraper...');
             await this.scraper.init();
-            
-            // Thêm từ khóa ban đầu vào database
+            console.log('✅ Scraper đã khởi tạo thành công');
+
+            console.log('💾 Đang thêm từ khóa ban đầu vào database...');
             await this.db.addKeyword(initialKeyword);
-            
+            console.log('✅ Đã thêm từ khóa ban đầu');
+
             this.isRunning = true;
+            console.log('🔄 Bắt đầu xử lý từ khóa...');
             await this.processKeywords();
-            
+
         } catch (error) {
             console.error('❌ Lỗi trong quá trình chạy:', error);
+            console.error('Stack trace:', error.stack);
         } finally {
             await this.cleanup();
         }
@@ -122,9 +127,14 @@ class KeywordSEOTool {
     }
 
     async cleanup() {
-        await this.scraper.close();
+        console.log('🧹 Đang dọn dẹp tài nguyên...');
         await this.db.close();
-        console.log('🧹 Đã dọn dẹp tài nguyên');
+
+        // Không đóng scraper để giữ browser mở
+        console.log('🌐 Browser vẫn mở để bạn có thể xem tiến trình');
+        console.log('🛑 Nhấn Ctrl+C để thoát hoàn toàn');
+
+        // await this.scraper.close();
     }
 
     sleep(ms) {
