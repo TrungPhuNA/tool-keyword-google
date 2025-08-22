@@ -4,12 +4,23 @@ Tool Node.js để thu thập từ khóa SEO từ Google Search một cách tự
 
 ## Tính năng
 
+### Scraper Tool:
 - 🔍 Tìm kiếm từ khóa trên Google
 - 📊 Thu thập từ khóa từ phần "Mọi người cũng tìm kiếm"
-- 💾 Lưu trữ vào SQLite database với kiểm tra trùng lặp
+- 💾 Lưu trữ vào MySQL database với kiểm tra trùng lặp
 - 🔄 Tự động loop qua các từ khóa mới tìm được
 - 📈 Theo dõi tiến độ và thống kê
 - ⏸️ Có thể dừng và tiếp tục
+- 👁️ Browser không tự động đóng để theo dõi tiến trình
+
+### Web Interface:
+- 🌐 Giao diện web quản lý keywords
+- 📋 Xem danh sách keywords với phân trang
+- 🔍 Tìm kiếm và lọc keywords
+- ✏️ Thêm, sửa, xóa keywords
+- 📊 Thống kê real-time
+- 🔄 Reset trạng thái keywords
+- ✅ Chọn và xóa nhiều keywords cùng lúc
 
 ## Cài đặt
 
@@ -56,6 +67,17 @@ node index.js "từ khóa của bạn"
 npm run dev
 ```
 
+### Chạy web interface để quản lý keywords:
+```bash
+npm run web
+```
+Sau đó truy cập: http://localhost:3000
+
+### Chạy riêng scraper:
+```bash
+npm run scraper
+```
+
 ## Cấu hình
 
 Chỉnh sửa file `.env` để thay đổi cấu hình:
@@ -94,8 +116,9 @@ Database được tối ưu với các index:
 
 - Tool sử dụng Puppeteer để điều khiển browser
 - Có delay giữa các lần tìm kiếm để tránh bị Google chặn
-- Database được lưu trong file `keywords.db`
+- Database MySQL cần được cài đặt và cấu hình trước
 - Nhấn Ctrl+C để dừng tool một cách an toàn
+- Đảm bảo MySQL service đang chạy trước khi start tool
 
 ## Troubleshooting
 

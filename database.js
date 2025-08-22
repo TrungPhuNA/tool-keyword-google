@@ -67,7 +67,7 @@ class Database {
     // Lấy từ khóa chưa được xử lý
     async getUnprocessedKeywords() {
         try {
-            const query = `SELECT * FROM keywords WHERE processed = FALSE ORDER BY created_at ASC`;
+            const query = `SELECT * FROM keywords WHERE processed = 0 ORDER BY created_at ASC`;
             const [rows] = await this.connection.execute(query);
             return rows;
         } catch (error) {
@@ -79,7 +79,7 @@ class Database {
     // Đánh dấu từ khóa đã được xử lý
     async markAsProcessed(keyword) {
         try {
-            const query = `UPDATE keywords SET processed = TRUE WHERE keyword = ?`;
+            const query = `UPDATE keywords SET processed = 1 WHERE keyword = ?`;
             const [result] = await this.connection.execute(query, [keyword]);
             return result.affectedRows > 0;
         } catch (error) {
@@ -105,8 +105,8 @@ class Database {
         try {
             const queries = [
                 'SELECT COUNT(*) as total FROM keywords',
-                'SELECT COUNT(*) as processed FROM keywords WHERE processed = TRUE',
-                'SELECT COUNT(*) as unprocessed FROM keywords WHERE processed = FALSE'
+                'SELECT COUNT(*) as processed FROM keywords WHERE processed = 1',
+                'SELECT COUNT(*) as unprocessed FROM keywords WHERE processed = 0'
             ];
 
             const [totalResult] = await this.connection.execute(queries[0]);
